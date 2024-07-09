@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<!-- made by KQY -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>SSS更新日志 - 高中体育批量评分系统 (SSS) by KQY</title>
+    <link rel="shortcut icon" href="../image/html_logo.svg">
+    <link rel="stylesheet" href="../modules/layui-v2.9.13/dist/css/layui.css" />
+    <link rel="stylesheet" href="../modules/layui-v2.9.13/dist/css/layui-theme-dark.css">
+    <link rel="stylesheet" href="../modules/global-style/style.css" />
+
+</head>
+
+<body class="layui-row">
+    <br>
+    <iframe id="nm_iframe" name="nm_iframe" style="display: none;"></iframe>
+
+    <div class="main-section font">
+        <div class="layui-field-box">
+            <div class="layui-container">
+                
+                <!-- <textarea id="inputData" placeholder="请输入数据(Excel直接粘贴一列)"></textarea>   -->
+                <form class="layui-form layui-form-pane" method="post" target="nm_iframe">
+                    <div class="layui-form-item" pane>
+                        <label class="layui-form-label">版本</label>
+                        <div class="layui-input-block" id="version-input" onclick="checkVersion();">
+                            <input id="version_online" type="radio" name="version" value="online" title="在线版" disabled>
+                            <input id="version_offline" type="radio" name="version" value="offline-gui" title="离线版-GUI" checked>
+                            <input id="version_offline" type="radio" name="version" value="offline-cmd" title="离线版-CMD" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="layui-badge layui-bg-orange">新</span>暗黑模式</label>
+                        <div class="layui-input-block" onclick="checkdarkmode();">
+                            <input id="darkmode_white" type="radio" name="darkmode" value="white" title="白天模式">
+                            <input id="darkmode_dark" type="radio" name="darkmode" value="dark" title="暗黑模式" checked>
+                            <input id="darkmode_any" type="radio" name="darkmode" value="any" title="跟随系统">
+                        </div>
+                    </div>
+                    </form>
+
+                    <blockquote id="offline-gui-update" class="layui-elem-quote">
+                        <h3><a href="javascript:;">离线GUI版更新日志：</a></h3>
+                        <div id="1.2.0 offline gui">
+                            <h4><span class="layui-badge layui-bg-gray">v1.2.0 24w26a</span>&nbsp;&nbsp;&nbsp;2024年6月30日 更新</h4>
+                            <p><span class="layui-badge layui-bg-orange">更改</span>&nbsp;&nbsp;&nbsp;新增了自动暗黑模式，晚上8点至次日7点均自动调为暗黑模式</p>
+                            <p><span class="layui-badge layui-bg-blue">更改</span>&nbsp;&nbsp;&nbsp;修改了程序封装逻辑，大幅减少文件大小与响应速度</p>
+                            <p><span class="layui-badge layui-bg-blue">更改</span>&nbsp;&nbsp;&nbsp;安装方式更改为绿色版，方便通过移动存储介质携带</p>
+                            <p><span class="layui-badge">修复</span>&nbsp;&nbsp;&nbsp;修复了安装与卸载过程中可能出现的闪退问题</p>
+                        </div>
+                        <br><br>
+                        <div id="1.1.0 offline gui">
+                            <h4><span class="layui-badge layui-bg-gray">v1.1.0 24w25a</span>&nbsp;&nbsp;&nbsp;2024年6月20日 更新</h4>
+                            <p><span class="layui-badge layui-bg-green">诞生</span>&nbsp;&nbsp;&nbsp;SSS离线GUI版 正式诞生，适用于无Wifi环境下的使用</p>
+                        </div>
+                    </blockquote>
+                    <br><br>
+
+                    <div class="layui-form-item">
+                        <!-- <div class="layui-input-block"> -->
+                        <!-- <button class="layui-btn layui-btn-normal" onclick="window.location.href='../index.html';">返回上一页</button> -->
+                        <!-- <button type="reset" class="layui-btn layui-btn-primary">重置输入</button> -->
+                        <button class="layui-btn layui-btn-warm" onclick="window.location.href='../index.html';">返回主页</button>
+                        <button class="layui-btn" onclick="location.reload();">刷新页面</button>
+                        <!-- </div> -->
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-section contractMobile font">
+        <div class="sUELB">
+            <div class="_1cYlJ">
+                <p><span><a href="https://tszx.chneic.sh.cn/" target="_blank"> <img src="../image/logo.png"
+                                width="250px"></a></span></p>
+                <p><a target="_blank" rel="noopener"
+                        href="https://beian.miit.gov.cn/"><span>沪ICP备2023008964号-1</span></a> &nbsp; <a target="_blank"
+                        rel="noopener"
+                        href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010702007683"><img
+                            class="icp-icon" src="../image/gongan.png"><span>沪公网安备 31010702007683号</span></a></p>
+                <p><span>由 <a href="https://space.bilibili.com/481168854" target="_blank">2025届 高二2班 金阳</a> 编写 &nbsp;
+                        邮箱：<a href="mailto:2765301200@qq.com">2765301200@qq.com</a></span></p>
+                <p><span>本程序遵守 <a href="../mit/index.html" target="_blank">MIT 开源协议</a></span></p>
+                <!-- <p><span>由 <a>2025届 高二1班 代文轩</a> 托管云服务</span></p> -->
+                <p><span>高中体育批量评分系统 2024年6月30日 版 &nbsp; v1.2.0</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script/check_update.js"></script>
+    <script src="../modules/layui-v2.9.11/dist/layui.js"></script>
+    <script src="../script/jquery.min.js"></script>
+    <script src="../script/js.cookie.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const now = new Date().getHours();
+        const startDarkModeAt = 7;
+        const endDarkModeAt = 20;
+
+
+        if (now >= endDarkModeAt || now <= startDarkModeAt) {
+            loadCSS("../modules/layui-v2.9.13/dist/css/layui-theme-dark.css");
+            document.getElementById("darkmode_dark").checked = true;
+            console.log(`${now}h now. Auto Dark mode ON.`);
+        } else {
+            removeCSS("../modules/layui-v2.9.13/dist/css/layui-theme-dark.css")
+            document.getElementById("darkmode_white").checked = true;
+            console.log(`${now}h now. Auto Dark mode OFF.`);
+        }
+
+        checkdarkmode();
+    </script>
+</body>
+
+</html>

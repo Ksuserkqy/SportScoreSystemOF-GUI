@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<!-- made by KQY -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>高中体育批量评分系统离线GUI版v1.2.0 24w26a(SSS) by KQY</title>
+    <link rel="shortcut icon" href="image/html_logo.svg">
+    <link rel="stylesheet" href="modules/layui-v2.9.13/dist/css/layui.css" />
+    <!-- <link rel="stylesheet" href="modules/layui-v2.9.13/dist/css/layui-theme-dark.css"> -->
+    <link rel="stylesheet" href="modules/global-style/style.css" />
+    <!-- <link rel="stylesheet" href="modules/mui-player/dist/mui-player.min.css" /> -->
+    <script src="modules/global-script/settings.js"></script>
+    <script src="modules/global-script/calc.offine.built.js"></script>
+</head>
+
+<body>
+    <br>
+    <iframe id="nm_iframe" name="nm_iframe" style="display: none;"></iframe>
+    <div class="main-section">
+        <fieldset class="layui-elem-field font">
+            <legend>高中体育批量评分系统（SSS）离线版 v1.2.0 24w26a [2024年6月30日]</legend>
+            <div class="layui-field-box">
+                <div class="layui-container">
+                    <blockquote class="layui-elem-quote">
+                        初次使用前需查看<a href="javascript:stick_single_tips();" class="content_red" style="color: red;"> 单项模式使用说明</a>与 <a
+                            href="javascript:stick_variety_tips();" class="content_red" style="color: red;"> 综合模式使用说明 </a><a
+                            href="video/index.html"  style="color: rgb(255, 187, 0);"> [观看演示视频] </a>
+                        &nbsp; （请在PC段查阅，移动端点击<a href="image/stick-phone-example.png" 
+                            class="content_blue" style="color: blue;">此处</a>查看图片或<a href="video/index.html" 
+                            class="content_blue" style="color: blue;">观看演示视频</a>）
+                            <br>
+                            不知道Excel表格该怎么写？数据该怎样排版？划档困难，快点击蓝字下载 <a href="SSS体测登记模板[v1.1.0].xlsx" 
+                            class="content_blue" target="_blank" style="color: blue;">SSS体测登记模板[v.1.1.0].xlsx</a>
+                            <br>
+                            <a href="update/index.html" 
+                            class="content_blue" style="color: blue;">查看更新日志</a>
+                    </blockquote>
+                    <!-- <textarea id="inputData" placeholder="请输入数据(Excel直接粘贴一列)"></textarea>   -->
+                    <form class="layui-form layui-form-pane" method="post" target="nm_iframe">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">模式</label>
+                            <div class="layui-input-block" id="ca-input" onclick="checkcatype();">
+                                <input id="catype_single" type="radio" name="catype" value="single" title="单项模式">
+                                <input id="catype_variety" type="radio" name="catype" value="variety" title="综合模式">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">默认标准</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="standard-from" lay-skin="switch" checked disabled>
+                            </div>
+                        </div>
+                        <!-- <div class="layui-form-item" pane>
+                            <label class="layui-form-label">自传标准</label>
+                            <div class="layui-upload-drag" id="upload-standard">
+                                <i class="layui-icon">&#xe67c;</i>
+                                <p>点击上传，或将文件拖拽到此处</p>
+                            </div>
+                        </div> -->
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label"><span
+                                    class="layui-badge layui-bg-orange">新</span>暗黑模式</label>
+                            <div class="layui-input-block" onclick="checkdarkmode();">
+                                <input id="darkmode_white" type="radio" name="darkmode" value="white" title="白天模式">
+                                <input id="darkmode_dark" type="radio" name="darkmode" value="dark" title="暗黑模式">
+                                <input id="darkmode_any" type="radio" name="darkmode" value="any" title="跟随系统" checked>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">详细弹窗</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" id="specific-msg" name="specific-msg" lay-skin="switch" checked>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="sex-label" pane>
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block" id="sex-input" onclick="checksex();">
+                                <input id="sex_boy" type="radio" name="sex" value="boy" title="男">
+                                <input id="sex_girl" type="radio" name="sex" value="girl" title="女">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">年级</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="grade" value="1" title="高一">
+                                <input type="radio" name="grade" value="2" title="高二" checked>
+                                <input type="radio" name="grade" value="3" title="高三">
+
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item" id="program-boy">
+                            <label class="layui-form-label">项目-男</label>
+                            <div class="layui-input-block">
+                                <select name="boy-program" id="boy-program" lay-verify="required" lay-search>
+                                    <option class="sex_for_both" id="longjump" value="longjump">1：立定跳远</option>
+                                    <option class="sex_for_boy" id="chining" value="chining">2：引体向上</option>
+                                    <!-- <option class="sex_for_girl" id="abdominal_curl" value="abdominal_curl">2：仰卧起坐</option> -->
+                                    <option class="sex_for_both" id="sitting_forward_flexion"
+                                        value="sitting_forward_flexion">3：坐位体前屈</option>
+                                    <option class="sex_for_both" id="run50" value="run50">4：50米跑</option>
+                                    <!-- <option class="sex_for_girl" id="run800" value="run800">5：800米耐力跑</option> -->
+                                    <option class="sex_for_boy" id="run1000" value="run1000">5：1000米耐力跑</option>
+                                    <option class="sex_for_both" id="vital_capacity" value="vital_capacity">6：肺活量
+                                    </option>
+                                    <option class="sex_for_both" id="bmi" value="bmi" disabled="disabled">7：BMI指数
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="program-girl">
+                            <label class="layui-form-label">项目-女</label>
+                            <div class="layui-input-block">
+                                <select name="girl-program" id="girl-program" lay-verify="required" lay-search>
+                                    <option class="sex_for_both" id="longjump" value="longjump">1：立定跳远</option>
+                                    <!-- <option class="sex_for_boy" id="chining" value="chining">2：引体向上</option> -->
+                                    <option class="sex_for_girl" id="abdominal_curl" value="abdominal_curl">2：仰卧起坐
+                                    </option>
+                                    <option class="sex_for_both" id="sitting_forward_flexion"
+                                        value="sitting_forward_flexion">3：坐位体前屈</option>
+                                    <option class="sex_for_both" id="run50" value="run50">4：50米跑</option>
+                                    <option class="sex_for_girl" id="run800" value="run800">5：800米耐力跑</option>
+                                    <!-- <option class="sex_for_boy" id="run1000" value="run1000">5：1000米耐力跑</option> -->
+                                    <option class="sex_for_both" id="vital_capacity value=" vital_capacity">6：肺活量
+                                    </option>
+                                    <option class="sex_for_both" id="bmi" value="bmi" disabled="disabled">7：BMI指数
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">填入复制的数据：
+                                <!-- <button class="layui-btn layui-btn-xs demo" data-type="stick_tips">如何复制数据</button> -->
+                            </label>
+                            <div class="layui-input-block">
+                                <textarea id="inputData" name="desc" placeholder="请输入内容"
+                                    class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <!-- <div class="layui-input-block"> -->
+                            <button class="layui-btn layui-btn-normal" onclick="Calculate();">开始评分</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置输入</button>
+                            <!-- <button class="layui-btn layui-btn-warm" onclick="copyresult();">复制结果</button> -->
+                            <button class="layui-btn" onclick="location.reload();">刷新页面</button>
+                            <!-- </div> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="layui-elem-field font">
+            <table id="opt-put-table"></table>
+        </fieldset>
+    </div>
+
+    <div class="other-section">
+        <div class="menu-box">
+            <div class="menu-button">
+                <div class="line-box">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <ul class="menu-list font">
+                <li onclick="version_check();"><i class="layui-icon">&#xe614;</i> <span>检查更新</span></li>
+                <li onclick="set_settings();"><i class="layui-icon">&#xe614;</i> <span>设置</span></li>
+                <li onclick="open_contact();"><i class="layui-icon">&#xe64c;</i> <span>联系我</span></li>
+            </ul>
+        </div>
+        <div id="contact-photo" style="display: none;">
+            <img src="image/contact.png" style="width: 200px;height: auto">
+        </div>
+        <div id="stick-variety-tips" style="display: none; padding: 20px;">
+            <img src="image/stick-variety-example.png" width="90%" style="text-align: center;">
+            <br>
+            <div><br></div>
+            <blockquote class="layui-elem-quote font">
+                <span>注意：图示为体育成绩记录表的标准Excel表格格式（如存在未测项目<span class="content_red">使用“\”符号代替</span>，但需<span
+                        class="content_red">保证结构完整</span>）</span><br>
+                <span>复制时使用鼠标指针滑动框选黑框范围，按下Ctrl+C复制<span
+                        style="color: gray;">（Mac则为Command+C）</span>,然后点击“填入复制的数据”下面的填写框并按下Ctrl+V粘贴<span
+                        style="color: gray;">（Mac则为Command+V）</span>即可</span><br>
+                <span>如手动输入则<span class="content_red">分割符则需使用“Tab”</span></span><br>
+                <span>图示数据粘贴效果如下：<br>女 187 50 23.6 7.9 3'34" 3200<br>
+                    男 193 11 22.4 7.5 3'42" \
+                </span>
+            </blockquote>
+        </div>
+        <div id="stick-single-tips" style="display: none; padding: 20px;">
+            <div class="layui-col-md4">
+                <img src="image/stick-single-example.png" width="90%">
+            </div>
+            <div class=" layui-col-md8">
+                <blockquote class="layui-elem-quote font">
+                    <span>注意：图示为体育成绩记录表的标准Excel表格格式（如存在未测项目<span class="content_red">使用“\”符号代替</span>，但需<span
+                            class="content_red">保证结构完整</span>）</span><br>
+                    <span>复制时使用鼠标指针滑动框选黑框范围，按下Ctrl+C复制<span
+                            style="color: gray;">（Mac则为Command+C）</span>,然后点击“填入复制的数据”下面的填写框并按下Ctrl+V粘贴<span
+                            style="color: gray;">（Mac则为Command+V）</span>即可</span><br>
+                    <span>如手动输入则<span class="content_red">分割符则需使用“Tab”</span></span><br>
+                    <span>图示数据粘贴效果如下：<br>7
+                        <br>7.1
+                        <br>7.2
+                        <br>7.3
+                        <br>7.4
+                        <br>7.6
+                        <br>7.8
+                        <br>8
+                        <br>8.2
+                        <br>8.4
+                        <br>8.6
+                        <br>8.8
+                        <br>9
+                        <br>9.2
+                        <br>9.4
+                        <br>9.6
+                        <br>9.8
+                        <br>10
+                        <br>10.2
+                        <br>10.4
+
+                    </span>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-section contractMobile font">
+        <div class="sUELB">
+            <div class="_1cYlJ">
+                <p><span><a href="https://tszx.chneic.sh.cn/" target="_blank"> <img src="image/logo.png"
+                                width="250px"></a></span></p>
+                <p><a target="_blank" rel="noopener"
+                        href="https://beian.miit.gov.cn/"><span>沪ICP备2023008964号-1</span></a> &nbsp; <a target="_blank"
+                        rel="noopener"
+                        href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010702007683"><img
+                            class="icp-icon" src="image/gongan.png"><span>沪公网安备 31010702007683号</span></a></p>
+                <p><span>由 <a href="https://space.bilibili.com/481168854" target="_blank">2025届 高二2班 金阳</a> 编写 &nbsp;
+                        邮箱：<a href="mailto:2765301200@qq.com">2765301200@qq.com</a></span></p>
+                <p><span>本程序遵守 <a href="mit/index.html">MIT 开源协议</a></span></p>
+                <!-- <p><span>由 <a>2025届 高二1班 代文轩</a> 托管云服务</span></p> -->
+                <p><span>高中体育批量评分系统 2024年6月30日 版 &nbsp; v1.2.0 24w26a</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/html" id="table-tool-bar">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-primary layui-border" onclick="copy('variety');">复制结果[全部]</button>
+            <button class="layui-btn layui-btn-primary layui-border" onclick="copy('score');">仅成绩</button>
+            <button class="layui-btn layui-btn-primary layui-border" onclick="copy('all');">个数+成绩</button>
+           
+        </div>
+    </script>
+    <script src="modules/layui-v2.9.11/dist/layui.js"></script>
+    <script src="modules/global-script/jquery.min.js"></script>
+    <script src="modules/global-script/js.cookie.min.js"></script>
+    <script src="modules/global-script/script.js"></script>
+    <script src="modules/global-script/check_update.js"></script>
+    <script>
+        console.log("\n\x1b[33m %s \x1b[0m\n", "Welcome to use SSS-OFFLINE v1.2.0 - Made by Ksuserkqy");
+
+        const now = new Date().getHours();
+        const startDarkModeAt = 7;
+        const endDarkModeAt = 20;
+
+
+        if (now >= endDarkModeAt || now <= startDarkModeAt) {
+            loadCSS("modules/layui-v2.9.13/dist/css/layui-theme-dark.css");
+            document.getElementById("darkmode_dark").checked = true;
+            console.log(`${now}h now. Auto Dark mode ON.`);
+        } else {
+            removeCSS("modules/layui-v2.9.13/dist/css/layui-theme-dark.css")
+            document.getElementById("darkmode_white").checked = true;
+            console.log(`${now}h now. Auto Dark mode OFF.`);
+        }
+
+        
+        chooseMemory();
+        checkdarkmode();
+        checkcatype();
+        if (checkRadio("catype") == "single") { checksex(); }
+    </script>
+
+</body>
+
+</html>

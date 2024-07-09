@@ -1,0 +1,9 @@
+body {
+    padding: 1em;
+}
+
+.video-player {
+    width: 80em;
+    text-align: center;
+    position: relative;
+}
